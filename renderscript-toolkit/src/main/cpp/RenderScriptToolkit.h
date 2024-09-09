@@ -508,8 +508,10 @@ class RenderScriptToolkit {
      * The YUV formats supported by yuvToRgb.
      */
     enum class YuvFormat {
+        NV12 = 0x10,
         NV21 = 0x11,
         YV12 = 0x32315659,
+        YV21 = 0x32315660,
     };
 
     /**

@@ -48,6 +48,15 @@ class YuvToRgbTask : public Task {
                  RenderScriptToolkit::YuvFormat format)
         : Task{sizeX, sizeY, 4, false, nullptr}, mOut{reinterpret_cast<uchar4*>(output)} {
         switch (format) {
+            case RenderScriptToolkit::YuvFormat::NV12:
+                mCstep = 2;
+                mStrideY = sizeX;
+                mStrideU = mStrideY;
+                mStrideV = mStrideY;
+                mInY = reinterpret_cast<const uchar*>(input);
+                mInU = reinterpret_cast<const uchar*>(input + mStrideY * sizeY);
+                mInV = mInU + 1;
+                break;
             case RenderScriptToolkit::YuvFormat::NV21:
                 mCstep = 2;
                 mStrideY = sizeX;
@@ -65,6 +74,15 @@ class YuvToRgbTask : public Task {
                 mInY = reinterpret_cast<const uchar*>(input);
                 mInU = reinterpret_cast<const uchar*>(input + mStrideY * sizeY);
                 mInV = mInU + mStrideV * sizeY / 2;
+                break;
+            case RenderScriptToolkit::YuvFormat::YV21:
+                mCstep = 1;
+                mStrideY = roundUpTo16(sizeX);
+                mStrideU = roundUpTo16(mStrideY >> 1u);
+                mStrideV = mStrideU;
+                mInY = reinterpret_cast<const uchar*>(input);
+                mInV = reinterpret_cast<const uchar*>(input + mStrideY * sizeY);
+                mInU = mInV + mStrideU * sizeY / 2;
                 break;
         }
     }

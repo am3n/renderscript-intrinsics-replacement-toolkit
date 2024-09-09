@@ -1038,6 +1038,11 @@ object Toolkit {
     /**
      * Convert an image from YUV to RGB.
      *
+     * YV12
+     * I420 = IYUV = YUV420p (sometimes YUV420p can refer to YV12)
+     * NV21
+     * NV12 = YUV420sp (sometimes YUV420sp can refer to NV21)
+     *
      * Converts a YUV buffer to RGB. The input array should be supplied in a supported YUV format.
      * The output is RGBA; the alpha channel will be set to 255.
      *
@@ -1063,6 +1068,11 @@ object Toolkit {
 
     /**
      * Convert an image from YUV to an RGB Bitmap.
+     *
+     * YV12 = YUV420p, YUV420pp
+     * I420 = IYUV = YUV420p (sometimes YUV420p can refer to YV12)
+     * NV21
+     * NV12 = YUV420sp, YUV420psp
      *
      * Converts a YUV buffer to an RGB Bitmap. The input array should be supplied in a supported
      * YUV format. The output is RGBA; the alpha channel will be set to 255.
@@ -1421,8 +1431,10 @@ class LookupTable {
  * The YUV formats supported by yuvToRgb.
  */
 enum class YuvFormat(val value: Int) {
+    NV12(0x10),
     NV21(0x11),
     YV12(0x32315659),
+    YV21(0x32315660),
 }
 
 /**
