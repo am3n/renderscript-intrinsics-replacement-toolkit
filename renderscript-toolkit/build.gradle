@@ -5,12 +5,12 @@ plugins {
 
 android {
 
-    compileSdk 35
+    compileSdk 34
     ndkVersion "27.1.12297006"
 
     defaultConfig {
         minSdk 16
-        targetSdk 35
+        targetSdk 34
         versionCode 1
         versionName "1.0"
         externalNativeBuild {
